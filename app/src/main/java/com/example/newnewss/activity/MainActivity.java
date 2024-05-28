@@ -99,4 +99,5 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException("API 응답을 읽는 데 실패했습니다.", e);
         }
     }
+
 }
