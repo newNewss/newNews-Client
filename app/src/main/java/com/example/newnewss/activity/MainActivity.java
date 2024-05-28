@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         String text = null;
         try {
-            text = URLEncoder.encode("연애", "UTF-8");
+            text = URLEncoder.encode("스포츠뉴스", "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("검색어 인코딩 실패",e);
         }
