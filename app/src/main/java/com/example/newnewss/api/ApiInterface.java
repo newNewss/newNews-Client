@@ -7,13 +7,12 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
-    @GET("search/{type}")
-    Call<String> getBookSearchResult(
+    @GET("search/news.json")
+    Call<NewsSearchResponse> searchNews(
             @Header("X-Naver-Client-Id") String ClientId,
             @Header("X-Naver-Client-Secret") String secretPwd,
-            @Path("type") String type,
             @Query("query") String query,
             @Query("sort") String sort,
-            @Query("display") int display
+            @Query("display") Integer display
     );
 }
