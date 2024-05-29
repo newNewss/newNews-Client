@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import com.example.newnewss.R;
 import com.example.newnewss.activity.ApiActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -12,13 +14,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        // ApiActivity를 시작하는 Intent 생성
-        Intent intent = new Intent(this, ApiActivity.class);
-        startActivity(intent);
-
-        // MainActivity를 종료하여 ApiActivity가 표시되도록 함
-        finish();
+        findViewById(R.id.startButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NewsCategoriesActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

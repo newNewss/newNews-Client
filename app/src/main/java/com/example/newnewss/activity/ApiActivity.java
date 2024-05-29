@@ -14,9 +14,6 @@ import com.example.newnewss.api.NewsItem;
 import com.example.newnewss.api.NewsSearchResponse;
 
 
-import java.io.UnsupportedEncodingException;
-
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +37,7 @@ public class ApiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_recommend);
+        setContentView(R.layout.activity_api);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
