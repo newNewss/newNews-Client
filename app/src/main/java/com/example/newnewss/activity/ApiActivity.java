@@ -1,6 +1,8 @@
 package com.example.newnewss.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,7 @@ import com.example.newnewss.api.NewsSearchResponse;
 import java.io.UnsupportedEncodingException;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,29 +33,34 @@ public class ApiActivity extends AppCompatActivity {
     private static final String sort = "sim";
     private static final Integer display = 3;
 
+    private RecyclerView recyclerView;
+    private NewsAdapter newsAdapter;
+    private List<NewsItem> newsItemList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_news_recommend);
 
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        newsAdapter = new NewsAdapter(newsItemList);
+        recyclerView.setAdapter(newsAdapter);
+
+        fetchNews();
+    }
+
+    private void fetchNews() {
         ApiInterface apiService = ApiClient.getInstance().create(ApiInterface.class);
 
         for (String category : categories) {
-            /*
-            String query;
-            try {
-                query = URLEncoder.encode(category, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException("검색어 인코딩 실패", e);
-            }
-
-             */
-
             apiService.searchNews(CLIENT_ID, CLIENT_SECRET, category, sort, display).enqueue(new Callback<NewsSearchResponse>() {
                 @Override
                 public void onResponse(Call<NewsSearchResponse> call, Response<NewsSearchResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         List<NewsItem> items = response.body().getItems();
+                        newsItemList.addAll(items);
+                        newsAdapter.notifyDataSetChanged();
                         Log.d("ApiActivity", "Category: " + category);
                         for (NewsItem item : items) {
                             Log.d("ApiActivity", "Title: " + item.getTitle());
