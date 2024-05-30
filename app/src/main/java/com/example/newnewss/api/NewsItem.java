@@ -12,6 +12,10 @@ public class NewsItem implements Serializable {
     @SerializedName("description")
     private String description;
 
+    // 카테고리 정보 추가
+    @SerializedName("category")
+    private String category;
+
     public String getTitle() {
         return title;
     }
@@ -26,5 +30,13 @@ public class NewsItem implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

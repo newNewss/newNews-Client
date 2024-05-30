@@ -46,7 +46,7 @@ public class ApiActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        newsAdapter = new NewsAdapter(newsItemList);
+        newsAdapter = new NewsAdapter(newsItemList); // 빈 카테고리로 초기화
         recyclerView.setAdapter(newsAdapter);
 
         fetchNews();
@@ -62,6 +62,12 @@ public class ApiActivity extends AppCompatActivity {
                 public void onResponse(Call<NewsSearchResponse> call, Response<NewsSearchResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         List<NewsItem> items = response.body().getItems();
+
+                        // 카테고리 정보 추가
+                        for (NewsItem item : items) {
+                            item.setCategory(category);
+                        }
+
                         newsItemList.addAll(items);
                         newsAdapter.notifyDataSetChanged();
                         Log.d("ApiActivity", "Category: " + category);
