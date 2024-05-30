@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -33,11 +34,15 @@ public class ApiActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NewsAdapter newsAdapter;
     private List<NewsItem> newsItemList = new ArrayList<>();
-
+    private List<String> selectedCategories = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_api);
+
+        // 선택된 카테고리를 Intent로부터 가져오기
+        Intent intent = getIntent();
+        selectedCategories = intent.getStringArrayListExtra("selectedCategories");
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -50,7 +55,8 @@ public class ApiActivity extends AppCompatActivity {
     private void fetchNews() {
         ApiInterface apiService = ApiClient.getInstance().create(ApiInterface.class);
 
-        for (String category : categories) {
+        //선택된 카테고리 사용
+        for (String category : selectedCategories) {
             apiService.searchNews(CLIENT_ID, CLIENT_SECRET, category, sort, display).enqueue(new Callback<NewsSearchResponse>() {
                 @Override
                 public void onResponse(Call<NewsSearchResponse> call, Response<NewsSearchResponse> response) {
