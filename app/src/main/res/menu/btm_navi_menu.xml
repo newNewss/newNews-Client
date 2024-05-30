@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tab_home"
+        android:enabled="true"
+        android:title="🏠홈"/>
+
+    <item
+        android:id="@+id/tab_likeBooks"
+        android:enabled="true"
+        android:title="🤍좋아한 책들"/>
+
+    <item
+        android:id="@+id/userSetting"
+        android:enabled="true"
+        android:title="🧍마이페이지"/>
+
+</menu>
