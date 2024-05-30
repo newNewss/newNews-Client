@@ -1,5 +1,6 @@
 package com.example.newnewss.activity;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +32,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
         NewsItem newsItem = newsList.get(position);
-        holder.title.setText(newsItem.getTitle());
-        holder.description.setText(newsItem.getDescription());
+//        holder.title.setText(newsItem.getTitle());
+//        holder.description.setText(newsItem.getDescription());
+        holder.title.setText(Html.fromHtml(newsItem.getTitle()));  // HTML 태그 제거
+        holder.description.setText(Html.fromHtml(newsItem.getDescription()));  // HTML 태그 제거
+        holder.category.setText(newsItem.getCategory()); // 카테고리 설정
     }
 
     @Override
@@ -41,12 +45,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     }
 
     public static class NewsViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, description;
+        public TextView title, description, category;
 
         public NewsViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.title);
             description = view.findViewById(R.id.description);
+            category = view.findViewById(R.id.category); // category TextView 추가
         }
     }
 }

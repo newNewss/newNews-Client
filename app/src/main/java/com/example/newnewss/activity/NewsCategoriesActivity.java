@@ -40,6 +40,7 @@ public class NewsCategoriesActivity extends AppCompatActivity {
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, newsCategoriesList);
         listView.setAdapter(adapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override

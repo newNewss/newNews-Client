@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -33,15 +34,19 @@ public class ApiActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NewsAdapter newsAdapter;
     private List<NewsItem> newsItemList = new ArrayList<>();
-
+    private List<String> selectedCategories = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_api);
 
+        // 선택된 카테고리를 Intent로부터 가져오기
+        Intent intent = getIntent();
+        selectedCategories = intent.getStringArrayListExtra("selectedCategories");
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        newsAdapter = new NewsAdapter(newsItemList);
+        newsAdapter = new NewsAdapter(newsItemList); // 빈 카테고리로 초기화
         recyclerView.setAdapter(newsAdapter);
 
         fetchNews();
@@ -50,12 +55,19 @@ public class ApiActivity extends AppCompatActivity {
     private void fetchNews() {
         ApiInterface apiService = ApiClient.getInstance().create(ApiInterface.class);
 
-        for (String category : categories) {
+        //선택된 카테고리 사용
+        for (String category : selectedCategories) {
             apiService.searchNews(CLIENT_ID, CLIENT_SECRET, category, sort, display).enqueue(new Callback<NewsSearchResponse>() {
                 @Override
                 public void onResponse(Call<NewsSearchResponse> call, Response<NewsSearchResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         List<NewsItem> items = response.body().getItems();
+
+                        // 카테고리 정보 추가
+                        for (NewsItem item : items) {
+                            item.setCategory(category);
+                        }
+
                         newsItemList.addAll(items);
                         newsAdapter.notifyDataSetChanged();
                         Log.d("ApiActivity", "Category: " + category);
