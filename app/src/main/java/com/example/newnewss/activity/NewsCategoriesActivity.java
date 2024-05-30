@@ -32,7 +32,7 @@ public class NewsCategoriesActivity extends AppCompatActivity {
         selectButton = findViewById(R.id.selectButton);
 
         newsCategoriesList = new ArrayList<>();
-        newsCategoriesList.add("연애");
+        newsCategoriesList.add("연예");
         newsCategoriesList.add("IT");
         newsCategoriesList.add("스포츠");
         newsCategoriesList.add("경제");
