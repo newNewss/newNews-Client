@@ -18,11 +18,27 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/description"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp" />
-
+        android:gravity="end">
+        <Button
+            android:id="@+id/like_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#009EFF"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:text="🤍"/>
+        <Button
+            android:id="@+id/detail_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#009EFF"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:text="상세보기"/>
+</LinearLayout>
 
 </LinearLayout>
