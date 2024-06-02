@@ -12,23 +12,21 @@
         android:text="추천 받고 싶은 책의\n항목을 골라주세요."
         android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/CategoryListLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.068" />
 
     <LinearLayout
         android:id="@+id/CategoryListLayout"
-        android:layout_width="280dp"
-        android:layout_height="450dp"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/articleCountInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryText"
-        app:layout_constraintVertical_bias="0.19999999">
+        app:layout_constraintTop_toBottomOf="@+id/categoryText">
 
         <ListView
             android:id="@+id/newsCategories"
@@ -37,6 +35,18 @@
             android:choiceMode="multipleChoice" />
 
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/articleCountInput"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:hint="카테고리당 기사 갯수 입력"
+        android:inputType="number"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/selectButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/selectButton"
@@ -49,5 +59,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CategoryListLayout" />
+        android:layout_marginTop="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
