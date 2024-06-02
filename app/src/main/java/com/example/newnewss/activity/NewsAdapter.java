@@ -35,7 +35,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 //        holder.title.setText(newsItem.getTitle());
 //        holder.description.setText(newsItem.getDescription());
         holder.title.setText(Html.fromHtml(newsItem.getTitle()));  // HTML 태그 제거
-        holder.description.setText(Html.fromHtml(newsItem.getDescription()));  // HTML 태그 제거
+        // holder.description.setText(Html.fromHtml(newsItem.getDescription()));  // HTML 태그 제거
         holder.category.setText(newsItem.getCategory()); // 카테고리 설정
     }
 
@@ -45,12 +45,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     }
 
     public static class NewsViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, description, category;
+        public TextView title, category;
 
         public NewsViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.title);
-            description = view.findViewById(R.id.description);
+//            description = view.findViewById(R.id.description);
             category = view.findViewById(R.id.category); // category TextView 추가
         }
     }
