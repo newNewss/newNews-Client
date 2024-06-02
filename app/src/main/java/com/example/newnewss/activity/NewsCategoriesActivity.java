@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.newnewss.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +20,7 @@ public class NewsCategoriesActivity extends AppCompatActivity {
 
     private ListView listView;
     private Button selectButton;
+    private EditText articleCountInput;
     private ArrayAdapter<String> adapter;
     private List<String> newsCategoriesList;
     private List<String> selectedCategories;
@@ -27,6 +32,7 @@ public class NewsCategoriesActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.newsCategories);
         selectButton = findViewById(R.id.selectButton);
+        articleCountInput = findViewById(R.id.articleCountInput);
 
         newsCategoriesList = new ArrayList<>();
         newsCategoriesList.add("연예");
@@ -49,11 +55,17 @@ public class NewsCategoriesActivity extends AppCompatActivity {
                     }
                 }
 
+                String articleCountStr = articleCountInput.getText().toString();
+
                 if (selectedCategories.isEmpty()) {
                     Toast.makeText(NewsCategoriesActivity.this, "항목을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                } else if (articleCountStr.isEmpty()) {
+                    Toast.makeText(NewsCategoriesActivity.this, "카테고리당 기사 갯수를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
+                    int articleCount = Integer.parseInt(articleCountStr);
                     Intent intent = new Intent(NewsCategoriesActivity.this, ApiActivity.class);
                     intent.putStringArrayListExtra("selectedCategories", (ArrayList<String>) selectedCategories);
+                    intent.putExtra("articleCount", articleCount);
                     startActivity(intent);
                 }
             }

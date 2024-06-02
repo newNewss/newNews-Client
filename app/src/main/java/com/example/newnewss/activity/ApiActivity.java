@@ -25,12 +25,12 @@ public class ApiActivity extends AppCompatActivity {
     private static final String CLIENT_ID = "W0pelb0v3yyc82lSyV17"; // 애플리케이션 클라이언트 아이디
     private static final String CLIENT_SECRET = "sbZ7kkmwn9"; // 애플리케이션 클라이언트 시크릿
     private static final String sort = "sim";
-    private static final Integer display = 3;
 
     private RecyclerView recyclerView;
     private NewsAdapter newsAdapter;
     private List<NewsItem> newsItemList = new ArrayList<>();
     private List<String> selectedCategories = new ArrayList<>();
+    private int articleCount;
 
     private static final int REQUEST_CATEGORY_SELECTION = 1;
 
@@ -42,6 +42,7 @@ public class ApiActivity extends AppCompatActivity {
         // 선택된 카테고리를 Intent로부터 가져오기
         Intent intent = getIntent();
         selectedCategories = intent.getStringArrayListExtra("selectedCategories");
+        articleCount = intent.getIntExtra("articleCount", 3); // Default to 3 if not provided
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -65,6 +66,7 @@ public class ApiActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CATEGORY_SELECTION && resultCode == RESULT_OK && data != null) {
             selectedCategories = data.getStringArrayListExtra("selectedCategories");
+            articleCount = data.getIntExtra("articleCount", 3);
             if (selectedCategories != null && !selectedCategories.isEmpty()) {
                 newsItemList.clear();
                 fetchNews();
@@ -77,7 +79,7 @@ public class ApiActivity extends AppCompatActivity {
 
         //선택된 카테고리 사용
         for (String category : selectedCategories) {
-            apiService.searchNews(CLIENT_ID, CLIENT_SECRET, category, sort, display).enqueue(new Callback<NewsSearchResponse>() {
+            apiService.searchNews(CLIENT_ID, CLIENT_SECRET, category, sort, articleCount).enqueue(new Callback<NewsSearchResponse>() {
                 @Override
                 public void onResponse(Call<NewsSearchResponse> call, Response<NewsSearchResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
