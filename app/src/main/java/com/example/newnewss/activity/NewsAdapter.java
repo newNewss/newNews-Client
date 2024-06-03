@@ -40,6 +40,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
         NewsItem newsItem = newsList.get(position);
+        // HTML 태그 제거 후 설정
         holder.title.setText(Html.fromHtml(newsItem.getTitle()));
         holder.category.setText(newsItem.getCategory());
 
@@ -49,7 +50,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 // 데이터베이스에 저장
                 NewsItemEntity newsItemEntity = new NewsItemEntity();
                 newsItemEntity.setCategory(newsItem.getCategory());
-                newsItemEntity.setTitle(newsItem.getTitle());
+                // HTML 태그 제거 후 저장
+                newsItemEntity.setTitle(Html.fromHtml(newsItem.getTitle()).toString());
 
                 NewsDatabase db = NewsDatabase.getInstance(context);
                 new Thread(new Runnable() {
