@@ -1,27 +1,35 @@
 package com.example.newnewss.activity;
 
+import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.newnewss.R;
 import com.example.newnewss.api.NewsItem;
+import com.example.newnewss.DB.NewsDatabase;
+import com.example.newnewss.DB.NewsItemEntity;
 
 import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
     private List<NewsItem> newsList;
+    private Context context;
 
-    public NewsAdapter(List<NewsItem> newsList) {
+    public NewsAdapter(List<NewsItem> newsList, Context context) {
         this.newsList = newsList;
+        this.context = context;
     }
 
+    @NonNull
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -32,11 +40,32 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
         NewsItem newsItem = newsList.get(position);
-//        holder.title.setText(newsItem.getTitle());
-//        holder.description.setText(newsItem.getDescription());
-        holder.title.setText(Html.fromHtml(newsItem.getTitle()));  // HTML 태그 제거
-        // holder.description.setText(Html.fromHtml(newsItem.getDescription()));  // HTML 태그 제거
-        holder.category.setText(newsItem.getCategory()); // 카테고리 설정
+        holder.title.setText(Html.fromHtml(newsItem.getTitle()));
+        holder.category.setText(newsItem.getCategory());
+
+        holder.likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 데이터베이스에 저장
+                NewsItemEntity newsItemEntity = new NewsItemEntity();
+                newsItemEntity.setCategory(newsItem.getCategory());
+                newsItemEntity.setTitle(newsItem.getTitle());
+
+                NewsDatabase db = NewsDatabase.getInstance(context);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        db.newsItemDao().insert(newsItemEntity);
+                        ((ApiActivity) context).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, "좋아요!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }).start();
+            }
+        });
     }
 
     @Override
@@ -46,14 +75,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     public static class NewsViewHolder extends RecyclerView.ViewHolder {
         public TextView title, category;
+        public Button likeBtn;
 
         public NewsViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.titleTextView);
-//            description = view.findViewById(R.id.description);
-            category = view.findViewById(R.id.category); // category TextView 추가
+            category = view.findViewById(R.id.category);
+            likeBtn = view.findViewById(R.id.like_btn);
         }
     }
 }
-
-

@@ -15,8 +15,6 @@
         android:textColor="#000000"
         android:textSize="24sp" />
 
-    <!-- Other views like RecyclerView, TextViews, etc. -->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/newsRecyclerView"
         android:layout_width="match_parent"
@@ -34,7 +32,6 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/btm_navi_menu"/>
 </LinearLayout>

@@ -54,7 +54,7 @@ public class ApiActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        newsAdapter = new NewsAdapter(newsItemList); // 빈 카테고리로 초기화
+        newsAdapter = new NewsAdapter(newsItemList, this); // Context를 추가로 전달
         recyclerView.setAdapter(newsAdapter);
 
         FloatingActionButton selectCategoryButton = findViewById(R.id.selectCategoryButton);
