@@ -73,14 +73,14 @@ public class ApiActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.tab_home) {
-                    Toast.makeText(ApiActivity.this, "홈 선택", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ApiActivity.this, "현재 페이지입니다.", Toast.LENGTH_SHORT).show();
                     return true;
                 } else if (id == R.id.tab_likeBooks) {
                     Intent intent = new Intent(ApiActivity.this, LikedNewsActivity.class);
                     startActivity(intent);
                     return true;
                 } else if (id == R.id.userSetting) {
-                    Toast.makeText(ApiActivity.this, "마이페이지 선택", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ApiActivity.this, "구현 중인 기능입니다.", Toast.LENGTH_SHORT).show();
                     return true;
                 } else {
                     return false;
