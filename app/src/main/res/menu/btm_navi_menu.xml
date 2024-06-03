@@ -7,9 +7,9 @@
         android:title="🏠홈"/>
 
     <item
-        android:id="@+id/tab_likeBooks"
+        android:id="@+id/tab_likeNews"
         android:enabled="true"
-        android:title="🤍좋아한 책들"/>
+        android:title="❤️좋아한 기사들"/>
 
     <item
         android:id="@+id/userSetting"

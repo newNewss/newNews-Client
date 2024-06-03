@@ -61,7 +61,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                         ((ApiActivity) context).runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(context, "좋아요!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "좋아한 기사에 추가되었습니다!", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

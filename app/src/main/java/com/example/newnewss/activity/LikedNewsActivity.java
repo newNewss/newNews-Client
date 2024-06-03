@@ -51,7 +51,7 @@ public class LikedNewsActivity extends AppCompatActivity {
                 if (id == R.id.tab_home) {
                     finish();
                     return true;
-                } else if (id == R.id.tab_likeBooks) {
+                } else if (id == R.id.tab_likeNews) {
                     Toast.makeText(LikedNewsActivity.this, "현재 화면입니다.", Toast.LENGTH_SHORT).show();
                     return true;
                 } else if (id == R.id.userSetting) {
