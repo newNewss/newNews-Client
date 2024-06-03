@@ -66,8 +66,9 @@ public class ApiActivity extends AppCompatActivity {
             }
         });
 
-        // Set up bottom navigation
+        // 메인페이지(추천페이지)에서 하단바 클릭시 이벤트
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.tab_home); // 현재 화면을 표시
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

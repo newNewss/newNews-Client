@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.newnewss.R;
 import com.example.newnewss.DB.NewsDatabase;
 import com.example.newnewss.DB.NewsItemEntity;
@@ -44,12 +45,15 @@ public class LikedNewsActivity extends AppCompatActivity {
         }).start();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.tab_likeNews); // 현재 화면을 표시
+
+        // 좋아요 페이지에서 하단바 클릭시 이벤트
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.tab_home) {
-                    finish();
+                    finish(); // ApiActivity로 돌아감
                     return true;
                 } else if (id == R.id.tab_likeNews) {
                     Toast.makeText(LikedNewsActivity.this, "현재 화면입니다.", Toast.LENGTH_SHORT).show();
