@@ -25,7 +25,7 @@ public class LikedNewsAdapter extends RecyclerView.Adapter<LikedNewsAdapter.Like
     @Override
     public LikedNewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_news, parent, false);
+                .inflate(R.layout.item_liked_news, parent, false);
         return new LikedNewsViewHolder(itemView);
     }
 

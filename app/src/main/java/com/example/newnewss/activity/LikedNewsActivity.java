@@ -47,7 +47,6 @@ public class LikedNewsActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.tab_likeNews); // 현재 화면을 표시
 
-        // 좋아요 페이지에서 하단바 클릭시 이벤트
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
