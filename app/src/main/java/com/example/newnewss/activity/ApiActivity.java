@@ -1,21 +1,29 @@
 package com.example.newnewss.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
+
 import com.example.newnewss.R;
 import com.example.newnewss.api.ApiClient;
 import com.example.newnewss.api.ApiInterface;
 import com.example.newnewss.api.NewsItem;
 import com.example.newnewss.api.NewsSearchResponse;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,6 +63,28 @@ public class ApiActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ApiActivity.this, NewsCategoriesActivity.class);
                 startActivityForResult(intent, REQUEST_CATEGORY_SELECTION);
+            }
+        });
+
+        // Set up bottom navigation
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.tab_home) {
+                    Toast.makeText(ApiActivity.this, "홈 선택", Toast.LENGTH_SHORT).show();
+                    return true;
+                } else if (id == R.id.tab_likeBooks) {
+                    Intent intent = new Intent(ApiActivity.this, LikedNewsActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (id == R.id.userSetting) {
+                    Toast.makeText(ApiActivity.this, "마이페이지 선택", Toast.LENGTH_SHORT).show();
+                    return true;
+                } else {
+                    return false;
+                }
             }
         });
 

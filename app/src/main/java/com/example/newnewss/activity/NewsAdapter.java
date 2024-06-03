@@ -49,7 +49,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
         public NewsViewHolder(View view) {
             super(view);
-            title = view.findViewById(R.id.title);
+            title = view.findViewById(R.id.titleTextView);
 //            description = view.findViewById(R.id.description);
             category = view.findViewById(R.id.category); // category TextView 추가
         }
