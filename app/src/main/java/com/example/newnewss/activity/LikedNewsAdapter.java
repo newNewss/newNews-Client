@@ -3,12 +3,15 @@ package com.example.newnewss.activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.newnewss.R;
+import com.example.newnewss.DB.NewsDatabase;
 import com.example.newnewss.DB.NewsItemEntity;
 
 import java.util.List;
@@ -34,6 +37,32 @@ public class LikedNewsAdapter extends RecyclerView.Adapter<LikedNewsAdapter.Like
         NewsItemEntity newsItem = likedNewsList.get(position);
         holder.title.setText(newsItem.getTitle());
         holder.category.setText(newsItem.getCategory());
+
+        holder.unlikeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    NewsItemEntity currentNewsItem = likedNewsList.get(adapterPosition);
+                    NewsDatabase db = NewsDatabase.getInstance(holder.itemView.getContext());
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            db.newsItemDao().deleteByTitleAndCategory(currentNewsItem.getTitle(), currentNewsItem.getCategory());
+                            ((LikedNewsActivity) holder.itemView.getContext()).runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    likedNewsList.remove(adapterPosition);
+                                    notifyItemRemoved(adapterPosition);
+                                    notifyItemRangeChanged(adapterPosition, likedNewsList.size());
+                                    Toast.makeText(holder.itemView.getContext(), "좋아요가 취소되었습니다!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }).start();
+                }
+            }
+        });
     }
 
     @Override
@@ -43,11 +72,13 @@ public class LikedNewsAdapter extends RecyclerView.Adapter<LikedNewsAdapter.Like
 
     public static class LikedNewsViewHolder extends RecyclerView.ViewHolder {
         public TextView title, category;
+        public Button unlikeBtn;
 
         public LikedNewsViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.titleTextView);
             category = view.findViewById(R.id.category);
+            unlikeBtn = view.findViewById(R.id.unlike_btn);
         }
     }
 }

@@ -38,6 +38,15 @@
                 android:textColor="#FFFFFF"
                 android:textSize="22sp"
                 android:text="상세보기"/>
+            <Button
+                android:id="@+id/unlike_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FF0000"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:text="좋아요 취소"/>
         </LinearLayout>
 
     </LinearLayout>
