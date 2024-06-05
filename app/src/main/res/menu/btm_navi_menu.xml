@@ -4,16 +4,19 @@
     <item
         android:id="@+id/tab_home"
         android:enabled="true"
-        android:title="🏠홈"/>
+        android:icon="@drawable/home"
+        android:title="홈"/>
 
     <item
-        android:id="@+id/tab_likeBooks"
+        android:id="@+id/tab_likeNews"
         android:enabled="true"
-        android:title="🤍좋아한 책들"/>
+        android:icon="@drawable/heart"
+        android:title="좋아한 기사들"/>
 
     <item
         android:id="@+id/userSetting"
         android:enabled="true"
-        android:title="🧍마이페이지"/>
+        android:icon="@drawable/profile"
+        android:title="마이페이지"/>
 
 </menu>

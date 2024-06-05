@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="4dp"
-    android:id="@+id/cardView">
+    card_view:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,28 +25,10 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/userNewsMemoTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end">
-
-            <Button
-                android:id="@+id/like_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#009EFF"
-                android:textAlignment="center"
-                android:textSize="22sp"
-                android:text="🤍"/>
-
             <Button
                 android:id="@+id/detail_btn"
                 android:layout_width="wrap_content"
@@ -57,6 +38,15 @@
                 android:textColor="#FFFFFF"
                 android:textSize="22sp"
                 android:text="상세보기"/>
+            <Button
+                android:id="@+id/unlike_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FF0000"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:text="좋아요 취소"/>
         </LinearLayout>
 
     </LinearLayout>

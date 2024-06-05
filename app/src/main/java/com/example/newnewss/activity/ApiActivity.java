@@ -1,21 +1,29 @@
 package com.example.newnewss.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
+
 import com.example.newnewss.R;
 import com.example.newnewss.api.ApiClient;
 import com.example.newnewss.api.ApiInterface;
 import com.example.newnewss.api.NewsItem;
 import com.example.newnewss.api.NewsSearchResponse;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,7 +54,7 @@ public class ApiActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        newsAdapter = new NewsAdapter(newsItemList); // 빈 카테고리로 초기화
+        newsAdapter = new NewsAdapter(newsItemList, this); // Context를 추가로 전달
         recyclerView.setAdapter(newsAdapter);
 
         FloatingActionButton selectCategoryButton = findViewById(R.id.selectCategoryButton);
@@ -55,6 +63,29 @@ public class ApiActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ApiActivity.this, NewsCategoriesActivity.class);
                 startActivityForResult(intent, REQUEST_CATEGORY_SELECTION);
+            }
+        });
+
+        // 메인페이지(추천페이지)에서 하단바 클릭시 이벤트
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.tab_home); // 현재 화면을 표시
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.tab_home) {
+                    Toast.makeText(ApiActivity.this, "현재 페이지입니다.", Toast.LENGTH_SHORT).show();
+                    return true;
+                } else if (id == R.id.tab_likeNews) {
+                    Intent intent = new Intent(ApiActivity.this, LikedNewsActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (id == R.id.userSetting) {
+                    Toast.makeText(ApiActivity.this, "구현 중인 기능입니다.", Toast.LENGTH_SHORT).show();
+                    return true;
+                } else {
+                    return false;
+                }
             }
         });
 
