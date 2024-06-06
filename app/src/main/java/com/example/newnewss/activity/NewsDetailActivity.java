@@ -18,13 +18,16 @@ public class NewsDetailActivity extends AppCompatActivity {
 
         TextView titleTextView = findViewById(R.id.titleTextView);
         TextView descriptionTextView = findViewById(R.id.descriptionTextView);
+        TextView linkTextView = findViewById(R.id.linkTextView);
 
         // Intent로부터 데이터 가져오기
         String title = getIntent().getStringExtra("title");
         String description = getIntent().getStringExtra("description");
+        String link = getIntent().getStringExtra("link");
 
         // TextView에 데이터 설정
         titleTextView.setText(title);
         descriptionTextView.setText(description);
+        linkTextView.setText(link);
     }
 }

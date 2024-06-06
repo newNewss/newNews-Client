@@ -127,6 +127,7 @@ public class ApiActivity extends AppCompatActivity {
                         for (NewsItem item : items) {
                             Log.d("ApiActivity", "Title: " + item.getTitle());
                             Log.d("ApiActivity", "Description: " + item.getDescription());
+                            Log.d("ApiActivity", "link: " + item.getLink());
                         }
                     } else {
                         Log.e("ApiActivity", "Response failed for category: " + category);

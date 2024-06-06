@@ -76,6 +76,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 Intent intent = new Intent(context, NewsDetailActivity.class);
                 intent.putExtra("title", Html.fromHtml(newsItem.getTitle()).toString());
                 intent.putExtra("description", Html.fromHtml(newsItem.getDescription()).toString());
+                intent.putExtra("link", Html.fromHtml(newsItem.getLink()).toString());
                 context.startActivity(intent);
             }
         });
