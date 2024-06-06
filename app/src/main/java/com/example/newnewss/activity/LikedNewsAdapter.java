@@ -1,6 +1,7 @@
 package com.example.newnewss.activity;
 
 import android.content.Intent;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,8 +71,8 @@ public class LikedNewsAdapter extends RecyclerView.Adapter<LikedNewsAdapter.Like
             public void onClick(View v) {
                 Intent intent = new Intent(holder.itemView.getContext(), NewsDetailActivity.class);
                 intent.putExtra("title", newsItem.getTitle());
-                intent.putExtra("description", newsItem.getDescription());
-                intent.putExtra("link", newsItem.getLink());
+                intent.putExtra("description", (Html.fromHtml(newsItem.getDescription()).toString()));
+                intent.putExtra("link", (Html.fromHtml(newsItem.getLink()).toString()));
                 holder.itemView.getContext().startActivity(intent);
             }
         });

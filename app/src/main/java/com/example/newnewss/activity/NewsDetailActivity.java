@@ -29,7 +29,7 @@ public class NewsDetailActivity extends AppCompatActivity {
 
         // TextView에 데이터 설정
         titleTextView.setText(title);
-        descriptionTextView.setText(description);
+        descriptionTextView.setText(HtmlCompat.fromHtml(description, HtmlCompat.FROM_HTML_MODE_LEGACY));
 
         String linkText = "<a href=\"" + link + "\">" + link + "</a>";
         linkTextView.setText(HtmlCompat.fromHtml(linkText, HtmlCompat.FROM_HTML_MODE_LEGACY));
