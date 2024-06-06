@@ -18,6 +18,9 @@
         <activity
             android:name=".activity.ApiActivity"
             android:exported="false"/>
+        <activity
+            android:name=".activity.NewsDetailActivity"
+            android:exported="false"/>
 
         <activity
             android:name=".activity.NewsCategoriesActivity"

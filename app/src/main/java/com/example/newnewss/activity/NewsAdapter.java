@@ -1,6 +1,7 @@
 package com.example.newnewss.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,6 +69,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 }).start();
             }
         });
+
+        holder.detailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, NewsDetailActivity.class);
+                intent.putExtra("title", Html.fromHtml(newsItem.getTitle()).toString());
+                intent.putExtra("description", Html.fromHtml(newsItem.getDescription()).toString());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -77,13 +88,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     public static class NewsViewHolder extends RecyclerView.ViewHolder {
         public TextView title, category;
-        public Button likeBtn;
+        public Button likeBtn, detailBtn;
 
         public NewsViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.titleTextView);
             category = view.findViewById(R.id.category);
             likeBtn = view.findViewById(R.id.like_btn);
+            detailBtn = view.findViewById(R.id.detail_btn);
         }
     }
 }

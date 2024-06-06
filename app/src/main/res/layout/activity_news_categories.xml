@@ -9,7 +9,7 @@
         android:id="@+id/categoryText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="추천 받고 싶은 책의\n항목을 골라주세요."
+        android:text="추천 받고 싶은 뉴스의\n항목을 골라주세요."
         android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/CategoryListLayout"
