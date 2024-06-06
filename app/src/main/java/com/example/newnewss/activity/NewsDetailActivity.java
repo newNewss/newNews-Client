@@ -2,10 +2,12 @@ package com.example.newnewss.activity;
 
 
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.text.HtmlCompat;
 
 import com.example.newnewss.R;
 
@@ -28,6 +30,9 @@ public class NewsDetailActivity extends AppCompatActivity {
         // TextView에 데이터 설정
         titleTextView.setText(title);
         descriptionTextView.setText(description);
-        linkTextView.setText(link);
+
+        String linkText = "<a href=\"" + link + "\">" + link + "</a>";
+        linkTextView.setText(HtmlCompat.fromHtml(linkText, HtmlCompat.FROM_HTML_MODE_LEGACY));
+        linkTextView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }
