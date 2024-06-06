@@ -1,5 +1,6 @@
 package com.example.newnewss.activity;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,19 @@ public class LikedNewsAdapter extends RecyclerView.Adapter<LikedNewsAdapter.Like
                 }
             }
         });
+
+        holder.detailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(holder.itemView.getContext(), NewsDetailActivity.class);
+                intent.putExtra("title", newsItem.getTitle());
+                intent.putExtra("description", newsItem.getDescription());
+                intent.putExtra("link", newsItem.getLink());
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
+
+
     }
 
     @Override
@@ -72,13 +86,14 @@ public class LikedNewsAdapter extends RecyclerView.Adapter<LikedNewsAdapter.Like
 
     public static class LikedNewsViewHolder extends RecyclerView.ViewHolder {
         public TextView title, category;
-        public Button unlikeBtn;
+        public Button unlikeBtn, detailBtn;
 
         public LikedNewsViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.titleTextView);
             category = view.findViewById(R.id.category);
             unlikeBtn = view.findViewById(R.id.unlike_btn);
+            detailBtn = view.findViewById(R.id.detail_btn);
         }
     }
 }

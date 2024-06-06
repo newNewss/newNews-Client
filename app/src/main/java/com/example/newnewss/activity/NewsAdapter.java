@@ -51,6 +51,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 // 데이터베이스에 저장
                 NewsItemEntity newsItemEntity = new NewsItemEntity();
                 newsItemEntity.setCategory(newsItem.getCategory());
+                newsItemEntity.setDescription(newsItem.getDescription()); // description 필드 설정
+                newsItemEntity.setLink(newsItem.getLink()); // 링크 필드 설정
+
                 // HTML 태그 제거 후 저장
                 newsItemEntity.setTitle(Html.fromHtml(newsItem.getTitle()).toString());
 
