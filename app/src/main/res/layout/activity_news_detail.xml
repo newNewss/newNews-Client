@@ -29,12 +29,23 @@
         android:padding="16dp"/>
 
     <TextView
+        android:id="@+id/readMoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="기사 자세히 읽어보기!⬇️"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"/>
+
+    <TextView
         android:id="@+id/linkTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="link"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
+        app:layout_constraintTop_toBottomOf="@id/readMoreTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="16dp"/>
