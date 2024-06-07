@@ -1,6 +1,7 @@
 package com.example.newnewss.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 // 데이터베이스에 저장
                 NewsItemEntity newsItemEntity = new NewsItemEntity();
                 newsItemEntity.setCategory(newsItem.getCategory());
+                newsItemEntity.setDescription(newsItem.getDescription()); // description 필드 설정
+                newsItemEntity.setLink(newsItem.getLink()); // 링크 필드 설정
+
                 // HTML 태그 제거 후 저장
                 newsItemEntity.setTitle(Html.fromHtml(newsItem.getTitle()).toString());
 
@@ -68,6 +72,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 }).start();
             }
         });
+
+        holder.detailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, NewsDetailActivity.class);
+                intent.putExtra("title", Html.fromHtml(newsItem.getTitle()).toString());
+                intent.putExtra("description", Html.fromHtml(newsItem.getDescription()).toString());
+                intent.putExtra("link", Html.fromHtml(newsItem.getLink()).toString());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -77,13 +92,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     public static class NewsViewHolder extends RecyclerView.ViewHolder {
         public TextView title, category;
-        public Button likeBtn;
+        public Button likeBtn, detailBtn;
 
         public NewsViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.titleTextView);
             category = view.findViewById(R.id.category);
             likeBtn = view.findViewById(R.id.like_btn);
+            detailBtn = view.findViewById(R.id.detail_btn);
         }
     }
 }

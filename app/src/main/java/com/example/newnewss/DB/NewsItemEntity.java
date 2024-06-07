@@ -8,6 +8,9 @@ public class NewsItemEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    private String description;
+
+    private String link;
     private String category;
     private String title;
 
@@ -16,6 +19,9 @@ public class NewsItemEntity {
         return id;
     }
 
+    public String getDescription() {return description; }
+
+    public String getLink() {return link; }
     public void setId(int id) {
         this.id = id;
     }
@@ -35,4 +41,8 @@ public class NewsItemEntity {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public void setDescription(String description) { this.description = description; }
+
+    public void setLink(String link) { this.link = link; }
 }
