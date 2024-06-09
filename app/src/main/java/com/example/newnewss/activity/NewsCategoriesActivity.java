@@ -63,10 +63,14 @@ public class NewsCategoriesActivity extends AppCompatActivity {
                     Toast.makeText(NewsCategoriesActivity.this, "카테고리당 기사 갯수를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
                     int articleCount = Integer.parseInt(articleCountStr);
-                    Intent intent = new Intent(NewsCategoriesActivity.this, ApiActivity.class);
-                    intent.putStringArrayListExtra("selectedCategories", (ArrayList<String>) selectedCategories);
-                    intent.putExtra("articleCount", articleCount);
-                    startActivity(intent);
+                    if (articleCount > 100) {
+                        Toast.makeText(NewsCategoriesActivity.this, "기사 개수는 최대 100개까지 입력할 수 있습니다.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = new Intent(NewsCategoriesActivity.this, ApiActivity.class);
+                        intent.putStringArrayListExtra("selectedCategories", (ArrayList<String>) selectedCategories);
+                        intent.putExtra("articleCount", articleCount);
+                        startActivity(intent);
+                    }
                 }
             }
         });
