@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">NewNewss</string>
+    <string name="app_name">NewNews</string>
+    <string-array name="categories_array">
+        <item>연예</item>
+        <item>IT</item>
+        <item>스포츠</item>
+        <item>경제</item>
+        <item>정치</item>
+    </string-array>
 </resources>
