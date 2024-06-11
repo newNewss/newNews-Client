@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.LikedNewsActivity" />
+<!--        <activity android:name=".activity.LikedNewsActivity" />-->
 
     </application>
 

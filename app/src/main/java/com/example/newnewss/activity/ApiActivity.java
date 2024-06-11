@@ -44,6 +44,7 @@ public class ApiActivity extends AppCompatActivity {
         // 카테고리 선택 버튼 이벤트 설정
         findViewById(R.id.selectCategoryButton).setOnClickListener(view -> {
             Intent categoryIntent = new Intent(ApiActivity.this, NewsCategoriesActivity.class);
+            startActivity(categoryIntent);
         });
 
         // 하단바 클릭 이벤트 설정
@@ -55,8 +56,7 @@ public class ApiActivity extends AppCompatActivity {
                 loadFragment(newsListFragment);
                 return true;
             } else if (id == TAB_LIKE_NEWS) {
-                Intent intent2 = new Intent(ApiActivity.this, LikedNewsActivity.class);
-                startActivity(intent2);
+                loadFragment(new LikedNewsFragment());
                 return true;
             } else if (id == USER_SETTING) {
                 Toast.makeText(ApiActivity.this, "구현 중인 기능입니다.", Toast.LENGTH_SHORT).show();

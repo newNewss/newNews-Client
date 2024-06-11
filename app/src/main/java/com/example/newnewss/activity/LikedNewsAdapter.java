@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.newnewss.R;
@@ -51,7 +52,7 @@ public class LikedNewsAdapter extends RecyclerView.Adapter<LikedNewsAdapter.Like
                         @Override
                         public void run() {
                             db.newsItemDao().deleteByTitleAndCategory(currentNewsItem.getTitle(), currentNewsItem.getCategory());
-                            ((LikedNewsActivity) holder.itemView.getContext()).runOnUiThread(new Runnable() {
+                            ((AppCompatActivity) holder.itemView.getContext()).runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     likedNewsList.remove(adapterPosition);
