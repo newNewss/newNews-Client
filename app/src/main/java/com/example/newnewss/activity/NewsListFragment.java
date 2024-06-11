@@ -20,7 +20,9 @@ import com.example.newnewss.api.NewsItem;
 import com.example.newnewss.api.NewsSearchResponse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,15 +32,13 @@ public class NewsListFragment extends Fragment {
 
     private static final String CLIENT_ID = "W0pelb0v3yyc82lSyV17"; // 애플리케이션 클라이언트 아이디
     private static final String CLIENT_SECRET = "sbZ7kkmwn9"; // 애플리케이션 클라이언트 시크릿
-    private static final String sort = "sim";
+    private static final String SORT = "sim"; // 정렬 기준
 
     private RecyclerView recyclerView;
     private NewsAdapter newsAdapter;
-    private List<NewsItem> newsItemList = new ArrayList<>();
-    private List<String> selectedCategories = new ArrayList<>();
+    private List<NewsItem> newsItemList;
+    private List<String> selectedCategories;
     private int articleCount;
-
-    private static final int REQUEST_CATEGORY_SELECTION = 1;
 
     @Nullable
     @Override
@@ -46,45 +46,56 @@ public class NewsListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_news_list, container, false);
 
         recyclerView = view.findViewById(R.id.newsRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        newsItemList = new ArrayList<>();
         newsAdapter = new NewsAdapter(newsItemList, getActivity());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(newsAdapter);
 
+        // 선택된 카테고리와 기사 수를 받아옴
+        Intent intent = getActivity().getIntent();
+        if (intent != null) {
+            selectedCategories = intent.getStringArrayListExtra("selectedCategories");
+            articleCount = intent.getIntExtra("articleCount", 3);
+        }
+
+        fetchNews();
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    void fetchNews() {
+        if (selectedCategories == null || selectedCategories.isEmpty()) {
+            Toast.makeText(getContext(), "카테고리가 선택되지 않았습니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        // 뉴스 데이터 가져오기
-        fetchNews();
-    }
-
-    private void fetchNews() {
-
-        // 이전에 가져온 기사 목록을 지움
         newsItemList.clear();
-
         ApiInterface apiService = ApiClient.getInstance().create(ApiInterface.class);
+        Map<String, List<NewsItem>> newsItemsByCategory = new HashMap<>();
 
-        // 선택된 카테고리 사용
         for (String category : selectedCategories) {
-            apiService.searchNews(CLIENT_ID, CLIENT_SECRET, category, sort, articleCount).enqueue(new Callback<NewsSearchResponse>() {
+            apiService.searchNews(CLIENT_ID, CLIENT_SECRET, category, SORT, articleCount).enqueue(new Callback<NewsSearchResponse>() {
                 @Override
                 public void onResponse(Call<NewsSearchResponse> call, Response<NewsSearchResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         List<NewsItem> items = response.body().getItems();
 
-                        // 카테고리 정보 추가
                         for (NewsItem item : items) {
                             item.setCategory(category);
                         }
+
+                        if (!newsItemsByCategory.containsKey(category)) {
+                            newsItemsByCategory.put(category, new ArrayList<>());
+                        }
+                        newsItemsByCategory.get(category).addAll(items);
 
                         newsItemList.addAll(items);
                         newsAdapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(getContext(), "뉴스를 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    if (category.equals(selectedCategories.get(selectedCategories.size() - 1))) {
+                        getActivity().runOnUiThread(() -> ((ApiActivity) getActivity()).passNewsDataToKeywordsFragment(newsItemsByCategory));
                     }
                 }
 

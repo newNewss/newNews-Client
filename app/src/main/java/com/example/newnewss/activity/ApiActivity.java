@@ -2,16 +2,19 @@ package com.example.newnewss.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.newnewss.R;
+import com.example.newnewss.api.NewsItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ApiActivity extends AppCompatActivity {
 
@@ -21,6 +24,7 @@ public class ApiActivity extends AppCompatActivity {
     private static final int TAB_KEYWORDS = R.id.tab_keywords;
 
     private NewsListFragment newsListFragment; // 멤버 변수로 선언
+    private CategoryKeywordsFragment categoryKeywordsFragment; // 멤버 변수로 선언
 
     private static final int REQUEST_CATEGORY_SELECTION = 1;
 
@@ -31,6 +35,7 @@ public class ApiActivity extends AppCompatActivity {
 
         // 뉴스 리스트 프래그먼트 초기화
         newsListFragment = new NewsListFragment();
+        categoryKeywordsFragment = new CategoryKeywordsFragment();
 
         // 선택된 카테고리 및 기사 수 가져오기
         Intent intent = getIntent();
@@ -44,7 +49,7 @@ public class ApiActivity extends AppCompatActivity {
         // 카테고리 선택 버튼 이벤트 설정
         findViewById(R.id.selectCategoryButton).setOnClickListener(view -> {
             Intent categoryIntent = new Intent(ApiActivity.this, NewsCategoriesActivity.class);
-            startActivity(categoryIntent);
+            startActivityForResult(categoryIntent, REQUEST_CATEGORY_SELECTION);
         });
 
         // 하단바 클릭 이벤트 설정
@@ -62,7 +67,7 @@ public class ApiActivity extends AppCompatActivity {
                 Toast.makeText(ApiActivity.this, "구현 중인 기능입니다.", Toast.LENGTH_SHORT).show();
                 return true;
             } else if (id == TAB_KEYWORDS) {
-                loadFragment(new CategoryKeywordsFragment());
+                loadFragment(categoryKeywordsFragment);
                 return true;
             }
             return false;
@@ -83,6 +88,14 @@ public class ApiActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CATEGORY_SELECTION && resultCode == RESULT_OK && data != null) {
             newsListFragment.setNewsPreferences(data.getStringArrayListExtra("selectedCategories"), data.getIntExtra("articleCount", 3));
+            newsListFragment.fetchNews();
+        }
+    }
+
+    // 뉴스 데이터를 CategoryKeywordsFragment에 전달
+    public void passNewsDataToKeywordsFragment(Map<String, List<NewsItem>> newsItemsByCategory) {
+        if (categoryKeywordsFragment != null) {
+            categoryKeywordsFragment.setNewsItemsByCategory(newsItemsByCategory);
         }
     }
 }
