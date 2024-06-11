@@ -62,6 +62,10 @@ public class NewsListFragment extends Fragment {
     }
 
     private void fetchNews() {
+
+        // 이전에 가져온 기사 목록을 지움
+        newsItemList.clear();
+
         ApiInterface apiService = ApiClient.getInstance().create(ApiInterface.class);
 
         // 선택된 카테고리 사용
