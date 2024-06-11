@@ -30,6 +30,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         this.context = context;
     }
 
+    public void setNewsItemList(List<NewsItem> newsItemList) {
+        this.newsList = newsItemList;
+    }
+
     @NonNull
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

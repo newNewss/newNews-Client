@@ -17,4 +17,8 @@ public interface NewsItemDao {
 
     @Query("DELETE FROM liked_news WHERE title = :title AND category = :category")
     void deleteByTitleAndCategory(String title, String category);
+
+    @Query("SELECT * FROM liked_news WHERE category = :category")
+    List<NewsItemEntity> getNewsByCategory(String category);
+
 }
