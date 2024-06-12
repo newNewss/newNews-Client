@@ -1,17 +1,18 @@
 package com.example.newnewss.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.widget.Button;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.example.newnewss.R;
 import com.example.newnewss.api.NewsItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,8 @@ public class ApiActivity extends AppCompatActivity {
     private CategoryKeywordsFragment categoryKeywordsFragment; // 멤버 변수로 선언
 
     private static final int REQUEST_CATEGORY_SELECTION = 1;
+
+    private Button toggleDarkModeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,20 @@ public class ApiActivity extends AppCompatActivity {
                 return true;
             }
             return false;
+        });
+
+        // 다크 모드 전환 버튼 설정
+        toggleDarkModeButton = findViewById(R.id.toggle_dark_mode_button);
+        toggleDarkModeButton.setOnClickListener(view -> {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            boolean isDarkMode = sharedPreferences.getBoolean("dark_mode", false);
+            if (isDarkMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                sharedPreferences.edit().putBoolean("dark_mode", false).apply();
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                sharedPreferences.edit().putBoolean("dark_mode", true).apply();
+            }
         });
     }
 
