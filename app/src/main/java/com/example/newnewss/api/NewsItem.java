@@ -1,40 +1,44 @@
 package com.example.newnewss.api;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
-
-public class NewsItem implements Serializable {
-
-    @SerializedName("title")
+public class NewsItem {
     private String title;
-
-    @SerializedName("description")
     private String description;
-
-    @SerializedName("link")
     private String link;
-
-    // 카테고리 정보 추가
-    @SerializedName("category")
     private String category;
+    private String memo;  // 메모 필드 추가
+
+    // Getters and Setters for other fields
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
 
     public String getTitle() {
         return title;
-    }
-
-    public String getLink() { return link; }
-
-    public String getDescription() {
-        return description;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getCategory() {
@@ -44,6 +48,4 @@ public class NewsItem implements Serializable {
     public void setCategory(String category) {
         this.category = category;
     }
-
-    public void setLink(String link) { this.link = link; }
 }

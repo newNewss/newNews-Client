@@ -3,6 +3,7 @@ package com.example.newnewss.DB;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 import androidx.room.Delete;
 
 import java.util.List;
@@ -21,4 +22,9 @@ public interface NewsItemDao {
     @Query("SELECT * FROM liked_news WHERE category = :category")
     List<NewsItemEntity> getNewsByCategory(String category);
 
+    @Query("SELECT * FROM liked_news WHERE title = :title LIMIT 1")
+    NewsItemEntity findByTitle(String title);
+
+    @Update
+    void update(NewsItemEntity newsItem);
 }

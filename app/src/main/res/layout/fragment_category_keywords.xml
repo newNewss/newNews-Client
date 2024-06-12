@@ -4,6 +4,15 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🚨 지금 핫한 키워드는?"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp"/>
+
     <Spinner
         android:id="@+id/category_spinner"
         android:layout_width="match_parent"
