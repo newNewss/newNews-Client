@@ -66,25 +66,28 @@ public class NewsDetailActivity extends AppCompatActivity {
 
         saveMemoButton.setOnClickListener(v -> {
             String newMemo = memoEditText.getText().toString();
-            saveMemoToDatabase(title, newMemo);
+            saveMemoToDatabase(title, description, link, newMemo);
         });
     }
 
-    private void saveMemoToDatabase(String title, String newMemo) {
+    private void saveMemoToDatabase(String title, String description, String link, String newMemo) {
         NewsDatabase db = NewsDatabase.getInstance(this);
         new Thread(() -> {
             NewsItemEntity newsItem = db.newsItemDao().findByTitle(title);
             if (newsItem != null) {
                 newsItem.setMemo(newMemo);
                 db.newsItemDao().update(newsItem);
-                runOnUiThread(() -> {
-                    Toast.makeText(this, "메모가 저장되었습니다!", Toast.LENGTH_SHORT).show();
-                });
             } else {
-                runOnUiThread(() -> {
-                    Toast.makeText(this, "해당 기사를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
-                });
+                newsItem = new NewsItemEntity();
+                newsItem.setTitle(title);
+                newsItem.setDescription(description);
+                newsItem.setLink(link);
+                newsItem.setMemo(newMemo);
+                db.newsItemDao().insert(newsItem);
             }
+            runOnUiThread(() -> {
+                Toast.makeText(this, "메모가 저장되었습니다!", Toast.LENGTH_SHORT).show();
+            });
         }).start();
     }
 }
