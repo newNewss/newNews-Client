@@ -11,7 +11,7 @@
         android:id="@+id/tab_likeNews"
         android:enabled="true"
         android:icon="@drawable/heart"
-        android:title="좋아한 기사들"/>
+        android:title="기사 다시보기"/>
 
     <item
         android:id="@+id/userSetting"
@@ -22,5 +22,5 @@
     <item
         android:id="@+id/tab_keywords"
         android:icon="@drawable/ic_launcher_foreground"
-        android:title="키워드" />
+        android:title="지금 뜨는 키워드" />
 </menu>

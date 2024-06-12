@@ -51,7 +51,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         linkTextView.setText(HtmlCompat.fromHtml(linkText, HtmlCompat.FROM_HTML_MODE_LEGACY));
         linkTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
-        memoEditText.setText(memo);  // 메모 설정
+        memoEditText.setText(memo);
 
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +79,10 @@ public class NewsDetailActivity extends AppCompatActivity {
                 db.newsItemDao().update(newsItem);
                 runOnUiThread(() -> {
                     Toast.makeText(this, "메모가 저장되었습니다!", Toast.LENGTH_SHORT).show();
+                });
+            } else {
+                runOnUiThread(() -> {
+                    Toast.makeText(this, "해당 기사를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
                 });
             }
         }).start();

@@ -23,8 +23,8 @@ public interface NewsItemDao {
     List<NewsItemEntity> getNewsByCategory(String category);
 
     @Query("SELECT * FROM liked_news WHERE title = :title LIMIT 1")
-    NewsItemEntity findByTitle(String title);  // 제목으로 뉴스 항목 찾기
+    NewsItemEntity findByTitle(String title);
 
     @Update
-    void update(NewsItemEntity newsItem);  // 뉴스 항목 업데이트
+    void update(NewsItemEntity newsItem);
 }
