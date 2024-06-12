@@ -68,7 +68,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             intent.putExtra("title", Html.fromHtml(newsItem.getTitle()).toString());
             intent.putExtra("description", Html.fromHtml(newsItem.getDescription()).toString());
             intent.putExtra("link", Html.fromHtml(newsItem.getLink()).toString());
-            intent.putExtra("memo", newsItem.getMemo());  // 메모 전달
+            intent.putExtra("memo", newsItem.getMemo());
+            intent.putExtra("category", newsItem.getCategory()); // 카테고리 추가
             context.startActivity(intent);
         });
     }
