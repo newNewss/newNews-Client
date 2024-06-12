@@ -45,47 +45,31 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
         NewsItem newsItem = newsList.get(position);
-        // HTML 태그 제거 후 설정
         holder.title.setText(Html.fromHtml(newsItem.getTitle()));
         holder.category.setText(newsItem.getCategory());
 
-        holder.likeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 데이터베이스에 저장
-                NewsItemEntity newsItemEntity = new NewsItemEntity();
-                newsItemEntity.setCategory(newsItem.getCategory());
-                newsItemEntity.setDescription(newsItem.getDescription()); // description 필드 설정
-                newsItemEntity.setLink(newsItem.getLink()); // 링크 필드 설정
+        holder.likeBtn.setOnClickListener(v -> {
+            NewsItemEntity newsItemEntity = new NewsItemEntity();
+            newsItemEntity.setCategory(newsItem.getCategory());
+            newsItemEntity.setDescription(newsItem.getDescription());
+            newsItemEntity.setLink(newsItem.getLink());
+            newsItemEntity.setTitle(Html.fromHtml(newsItem.getTitle()).toString());
 
-                // HTML 태그 제거 후 저장
-                newsItemEntity.setTitle(Html.fromHtml(newsItem.getTitle()).toString());
-
-                NewsDatabase db = NewsDatabase.getInstance(context);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        db.newsItemDao().insert(newsItemEntity);
-                        ((ApiActivity) context).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(context, "좋아한 기사에 추가되었습니다!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }).start();
-            }
+            NewsDatabase db = NewsDatabase.getInstance(context);
+            new Thread(() -> {
+                db.newsItemDao().insert(newsItemEntity);
+                ((ApiActivity) context).runOnUiThread(() ->
+                        Toast.makeText(context, "좋아한 기사에 추가되었습니다!", Toast.LENGTH_SHORT).show());
+            }).start();
         });
 
-        holder.detailBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, NewsDetailActivity.class);
-                intent.putExtra("title", Html.fromHtml(newsItem.getTitle()).toString());
-                intent.putExtra("description", Html.fromHtml(newsItem.getDescription()).toString());
-                intent.putExtra("link", Html.fromHtml(newsItem.getLink()).toString());
-                context.startActivity(intent);
-            }
+        holder.detailBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(context, NewsDetailActivity.class);
+            intent.putExtra("title", Html.fromHtml(newsItem.getTitle()).toString());
+            intent.putExtra("description", Html.fromHtml(newsItem.getDescription()).toString());
+            intent.putExtra("link", Html.fromHtml(newsItem.getLink()).toString());
+            intent.putExtra("memo", newsItem.getMemo());  // 메모 전달
+            context.startActivity(intent);
         });
     }
 

@@ -9,21 +9,34 @@ public class NewsItemEntity {
     private int id;
 
     private String description;
-
     private String link;
     private String category;
     private String title;
+    private String memo;  // 메모 필드 추가
 
     // Getters and Setters
     public int getId() {
         return id;
     }
 
-    public String getDescription() {return description; }
-
-    public String getLink() {return link; }
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getCategory() {
@@ -42,7 +55,11 @@ public class NewsItemEntity {
         this.title = title;
     }
 
-    public void setDescription(String description) { this.description = description; }
+    public String getMemo() {
+        return memo;
+    }
 
-    public void setLink(String link) { this.link = link; }
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
 }

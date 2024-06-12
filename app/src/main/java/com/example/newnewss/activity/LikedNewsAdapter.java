@@ -40,6 +40,7 @@ public class LikedNewsAdapter extends RecyclerView.Adapter<LikedNewsAdapter.Like
         NewsItemEntity newsItem = likedNewsList.get(position);
         holder.title.setText(newsItem.getTitle());
         holder.category.setText(newsItem.getCategory());
+        holder.memo.setText(newsItem.getMemo());  // 메모 표시
 
         holder.unlikeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,13 +73,12 @@ public class LikedNewsAdapter extends RecyclerView.Adapter<LikedNewsAdapter.Like
             public void onClick(View v) {
                 Intent intent = new Intent(holder.itemView.getContext(), NewsDetailActivity.class);
                 intent.putExtra("title", newsItem.getTitle());
-                intent.putExtra("description", (Html.fromHtml(newsItem.getDescription()).toString()));
-                intent.putExtra("link", (Html.fromHtml(newsItem.getLink()).toString()));
+                intent.putExtra("description", Html.fromHtml(newsItem.getDescription()).toString());
+                intent.putExtra("link", Html.fromHtml(newsItem.getLink()).toString());
+                intent.putExtra("memo", newsItem.getMemo());  // 메모 전달
                 holder.itemView.getContext().startActivity(intent);
             }
         });
-
-
     }
 
     @Override
@@ -87,13 +87,14 @@ public class LikedNewsAdapter extends RecyclerView.Adapter<LikedNewsAdapter.Like
     }
 
     public static class LikedNewsViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, category;
+        public TextView title, category, memo;
         public Button unlikeBtn, detailBtn;
 
         public LikedNewsViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.titleTextView);
             category = view.findViewById(R.id.category);
+            memo = view.findViewById(R.id.memoTextView);  // 메모 텍스트뷰
             unlikeBtn = view.findViewById(R.id.unlike_btn);
             detailBtn = view.findViewById(R.id.detail_btn);
         }
