@@ -42,6 +42,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         String description = getIntent().getStringExtra("description");
         String link = getIntent().getStringExtra("link");
         String memo = getIntent().getStringExtra("memo");
+        String category = getIntent().getStringExtra("category"); // 카테고리 정보 추가
 
         // TextView에 데이터 설정
         titleTextView.setText(title);
@@ -66,11 +67,11 @@ public class NewsDetailActivity extends AppCompatActivity {
 
         saveMemoButton.setOnClickListener(v -> {
             String newMemo = memoEditText.getText().toString();
-            saveMemoToDatabase(title, description, link, newMemo);
+            saveMemoToDatabase(title, description, link, category, newMemo);
         });
     }
 
-    private void saveMemoToDatabase(String title, String description, String link, String newMemo) {
+    private void saveMemoToDatabase(String title, String description, String link, String category, String newMemo) {
         NewsDatabase db = NewsDatabase.getInstance(this);
         new Thread(() -> {
             NewsItemEntity newsItem = db.newsItemDao().findByTitle(title);
@@ -82,6 +83,7 @@ public class NewsDetailActivity extends AppCompatActivity {
                 newsItem.setTitle(title);
                 newsItem.setDescription(description);
                 newsItem.setLink(link);
+                newsItem.setCategory(category); // 카테고리 설정
                 newsItem.setMemo(newMemo);
                 db.newsItemDao().insert(newsItem);
             }
